@@ -1,5 +1,7 @@
 package _06_frogger;
 
+import javax.swing.JOptionPane;
+
 import processing.core.PApplet;
 
 public class Frogger extends PApplet {
@@ -8,7 +10,13 @@ public class Frogger extends PApplet {
     int frogHopDist = 50;
     int frogX = 400;
     int frogY = 575;
-    
+    Car car;
+    Car cra;
+    Car arc;
+    Car rac;
+    Car crar;
+    Car raca;
+    Car carc;
     @Override
     public void settings() {
         size(WIDTH, HEIGHT);
@@ -16,7 +24,22 @@ public class Frogger extends PApplet {
 
     @Override
     public void setup() {
-
+    	car = new Car(800,550,50,20);
+    	cra = new Car(800,0,50,1);
+    	arc = new Car(50,500,100,35);
+    	rac = new Car(100,450,100,35);
+    	crar = new Car(300,250,100,35);
+    	raca = new Car(200,200,50,30);
+    	
+    	}
+    boolean intersects(Car car) {
+    	 if ((frogY > car.getY() && frogY < car.getY()+50) &&
+    	                (frogX > car.getX() && frogX < car.getX()+car.getSize())) {
+    	   return true;
+    	  }
+    	 else  {
+    	  return false;
+    	 }
     }
 
     @Override
@@ -24,6 +47,44 @@ public class Frogger extends PApplet {
     background(0,0,200);
     fill(0,200,0);
     ellipse(frogX,frogY,50,50);
+    car.moveLeft();
+    cra.moveLeft();
+    car.display();
+    cra.display();
+    arc.moveRight();
+    arc.display();
+    rac.moveRight();
+    rac.display();
+    crar.moveLeft();
+    raca.moveRight();
+    crar.display();
+    raca.display();
+    if(intersects(car)) {
+    	frogX = 400;
+    	frogY = 575;
+    }
+    if(intersects(rac)) {
+    	frogX = 400;
+    	frogY = 575;
+    }
+    if(intersects(arc)) {
+    	frogX = 400;
+    	frogY = 575;
+    }
+    if(intersects(cra)) {
+    	JOptionPane.showMessageDialog(null, "you win!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    	exit();
+    }
+    if(intersects(crar)) {
+    	frogX = 400;
+    	frogY = 575;
+    }
+    if(intersects(raca)) {
+    	frogX = 400;
+    	frogY = 575;
+    }
+
+
     }
     public void keyPressed()
     {
@@ -66,15 +127,38 @@ public class Frogger extends PApplet {
     	int x;
     	int y;
     	int size;
-    	Car(int carX, int carY, int carSize){
-    		carX = this.x;
-    		carY = this.y;
-    		carSize = this.size;
+    	int speed;
+    	Car(int carX, int carY, int carSize,int carSpeed){
+    		this.x = carX;
+    		this.y = carY;
+    		this.size = carSize;
+    		this.speed = carSpeed;
     	}
     	void display()
     	{
     	  fill(0,255,0);
     	  rect(x , y,  size, 50);
+    	}
+    	void moveLeft() {
+    		x -= speed;
+    		if(x<-size) {
+    			x=800;
+    		}
+    	}
+    	void moveRight() {
+    		x+= speed;
+    		if (x>800) {
+    			x = 0;
+    		}
+    	}
+    	int getX() {
+    		return x;
+    	}
+    	int getY() {
+    		return y;
+    	}
+    	int getSize() {
+    		return size;
     	}
     	}
 
