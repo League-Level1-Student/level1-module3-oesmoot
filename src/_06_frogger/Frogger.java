@@ -17,6 +17,11 @@ public class Frogger extends PApplet {
     Car crar;
     Car raca;
     Car carc;
+    Car arca;
+    Car rrac;
+    Car rarc;
+    Car arac;
+    Car crac;
     @Override
     public void settings() {
         size(WIDTH, HEIGHT);
@@ -30,6 +35,12 @@ public class Frogger extends PApplet {
     	rac = new Car(100,450,100,35);
     	crar = new Car(300,250,100,35);
     	raca = new Car(200,200,50,30);
+    	carc = new Car(200,300,50,30);
+    	arca = new Car(200,100,50,30);
+    	rrac = new Car(200,50,50,30);
+    	rarc = new Car(200,150,50,30);
+    	arac = new Car(200,350,50,30);
+    	crac = new Car(200,400,50,30);
     	
     	}
     boolean intersects(Car car) {
@@ -48,7 +59,7 @@ public class Frogger extends PApplet {
     fill(0,200,0);
     ellipse(frogX,frogY,50,50);
     car.moveLeft();
-    cra.moveLeft();
+    cra.timer();
     car.display();
     cra.display();
     arc.moveRight();
@@ -59,32 +70,28 @@ public class Frogger extends PApplet {
     raca.moveRight();
     crar.display();
     raca.display();
-    if(intersects(car)) {
-    	frogX = 400;
-    	frogY = 575;
-    }
-    if(intersects(rac)) {
-    	frogX = 400;
-    	frogY = 575;
-    }
-    if(intersects(arc)) {
+    carc.display();
+    carc.moveLeft();
+    arca.display();
+    arca.moveLeft();
+    rrac.display();
+    rrac.moveLeft();
+    rarc.display();
+    rarc.moveLeft();
+    arac.display();
+    arac.moveLeft();
+    crac.display();
+    crac.moveLeft();
+    if(intersects(car)||intersects(rac)||intersects(arc)||intersects(crar)||
+    		intersects(raca)||intersects(carc)||intersects(arca)||intersects(rrac)||intersects(rarc)||intersects(crac)) {
     	frogX = 400;
     	frogY = 575;
     }
     if(intersects(cra)) {
-    	JOptionPane.showMessageDialog(null, "you win!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    	JOptionPane.showMessageDialog(null, "you win!!!!!!!!!!1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11!!!!!!!!!!!!!!!!!!!!");
     	exit();
     }
-    if(intersects(crar)) {
-    	frogX = 400;
-    	frogY = 575;
-    }
-    if(intersects(raca)) {
-    	frogX = 400;
-    	frogY = 575;
-    }
-
-
+    
     }
     public void keyPressed()
     {
@@ -149,6 +156,13 @@ public class Frogger extends PApplet {
     		x+= speed;
     		if (x>800) {
     			x = 0;
+    		}
+    	}
+    	void timer() {
+    		x-= speed;
+    		if(x<-size) {
+    			JOptionPane.showMessageDialog(null, "you suck lole");
+    			exit();
     		}
     	}
     	int getX() {
